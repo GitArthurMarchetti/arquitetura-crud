@@ -1,6 +1,9 @@
 import { ScrollArea } from "@/components/ui/scroll-area"
+import db from "@/services/db";
+
 
 export default function Home() {
+  console.log(db)
   return (
     <>
       <section className="rounded-md border w-5/6 p-10 h-[35rem] m-auto mt-10">
