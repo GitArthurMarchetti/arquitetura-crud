@@ -5,6 +5,7 @@ type Tarefa = {
     id: number | null
     titulo: string
 }
+
 export default Tarefa
 
 export async function getEmptyTarefa(): Promise<Tarefa> {
