@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+body{
+  height: 100%;
+  width: 100vw;
+}
+
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
