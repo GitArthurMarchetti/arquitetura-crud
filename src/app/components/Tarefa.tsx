@@ -5,6 +5,7 @@ import { ScrollArea } from "@/componentsUi/ui/scroll-area"
 import Tarefa from "../services/tarefa";
 import { useState } from "react";
 import { saveTarefa, removeTarefa } from "../services/tarefa";
+import { FaTrash } from "react-icons/fa6";
 
 type Props = {
     tarefas: Tarefa[];
@@ -23,10 +24,11 @@ export default function Tarefa({ tarefas, tarefa: novaTarefa }: Props) {
                         {tarefas.map((t) => (
                             <div
                                 key={t.id}
-                                className="border-2 py-3 px-5 rounded-xl shadow-black shadow-md hover:bg-gray-800 flex justify-between"
+                                onClick={() => setTarefa(t)}
+                                className="border-2 py-3 px-5 rounded-xl shadow-black shadow-md hover:bg-gray-800 flex justify-between text-center items-center"
                             >
-                                <h2 onClick={() => setTarefa(t)}>{t.titulo}</h2>
-                                <div onClick={() => removeTarefa(t)}>remove</div>
+                                <h2 >{t.titulo}</h2>
+                                <div onClick={() => removeTarefa(t)} className="hover:text-red-600 transition-all"><FaTrash /></div>
                             </div>
                         ))}
                     </div>
@@ -35,22 +37,23 @@ export default function Tarefa({ tarefas, tarefa: novaTarefa }: Props) {
                     <input type="hidden" name="id" value={`${tarefa?.id}`} />
                     <input type="text"
                         name="titulo"
-                        className="w-11/12 p-2 text-black"
+                        className="w-11/12 p-2 text-black rounded-md"
                         placeholder="Nova Tarefa..."
                         value={tarefa.titulo}
                         onChange={(e) => setTarefa({ ...tarefa, titulo: e.target.value })}
                     />
+                    <button className={`w-1/12 bg-blue-500 rounded-md`}>
+                        {tarefa.id ? 'Salvar' : 'Adicionar'}
+                    </button>
                     {tarefa.id && (
                         <button
                             onClick={() => setTarefa({ ...novaTarefa })}
-                            className="bg-slate-300 p-3 py-2 rounded-md hover:bg-slate-200 transition-all"
+                            className="bg-red-500 p-3 py-2 rounded-md hover:bg-red-800 transition-all"
                         >
                             Cancelar
                         </button>
                     )}
-                    <button className="w-1/12 bg-blue-600">
-                        {tarefa.id ? "Salvar" : "Adicionar"}
-                    </button>
+
                 </form>
             </section>
         </>
