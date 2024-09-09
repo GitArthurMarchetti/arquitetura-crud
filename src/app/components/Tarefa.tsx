@@ -2,18 +2,18 @@
 
 import { ScrollArea } from "@/componentsUi/ui/scroll-area"
 
-import Tarefa from "../services/tarefa";
+import TarefaType from "../services/tarefa";
 import { useState } from "react";
 import { saveTarefa, removeTarefa } from "../services/tarefa";
 import { FaTrash } from "react-icons/fa6";
 
 type Props = {
-    tarefas: Tarefa[];
-    tarefa: Tarefa;
+    tarefas: TarefaType[];
+    tarefa: TarefaType;
 };
 
 export default function Tarefa({ tarefas, tarefa: novaTarefa }: Props) {
-    const [tarefa, setTarefa] = useState<Tarefa>(novaTarefa)
+    const [tarefa, setTarefa] = useState<TarefaType>(novaTarefa)
 
     return (
         <>
@@ -25,7 +25,7 @@ export default function Tarefa({ tarefas, tarefa: novaTarefa }: Props) {
                             <div
                                 key={t.id}
                                 onClick={() => setTarefa(t)}
-                                className="border-2 py-3 px-5 rounded-xl shadow-black shadow-md hover:bg-gray-800 flex justify-between text-center items-center"
+                                className={` border-2 py-3 px-5 rounded-xl shadow-black shadow-md hover:border-violet-600 transition-all flex justify-between text-center items-center`}
                             >
                                 <h2 >{t.titulo}</h2>
                                 <div onClick={() => removeTarefa(t)} className="hover:text-red-600 transition-all"><FaTrash /></div>
@@ -34,7 +34,7 @@ export default function Tarefa({ tarefas, tarefa: novaTarefa }: Props) {
                     </div>
                 </ScrollArea>
                 <form action={saveTarefa} className="flex gap-2">
-                    <input type="hidden" name="id" value={`${tarefa?.id}`} />
+                    <input type="hidden" name="id" value={`${tarefa?.id}`} className={`${tarefa.id ? 'border-2 border-yellow-500' : 'border-2 border-blue-500'}`} />
                     <input type="text"
                         name="titulo"
                         className="w-11/12 p-2 text-black rounded-md"
@@ -42,7 +42,7 @@ export default function Tarefa({ tarefas, tarefa: novaTarefa }: Props) {
                         value={tarefa.titulo}
                         onChange={(e) => setTarefa({ ...tarefa, titulo: e.target.value })}
                     />
-                    <button className={`w-1/12 bg-blue-500 rounded-md`}>
+                    <button className={`w-1/12 bg-blue-500 rounded-md `}>
                         {tarefa.id ? 'Salvar' : 'Adicionar'}
                     </button>
                     {tarefa.id && (

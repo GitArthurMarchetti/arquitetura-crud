@@ -5,25 +5,25 @@ import db from "./db";
 import { redirect } from 'next/navigation'
 
 
-type Tarefa = {
+type TarefaType = {
     id: number | null
     titulo: string
 }
 
-export default Tarefa
+export default TarefaType
 
-export async function getEmptyTarefa(): Promise<Tarefa> {
+export async function getEmptyTarefa(): Promise<TarefaType> {
     return { id: null, titulo: "" }
 }
-export async function getTarefas(): Promise<Tarefa[]> {
-    return await db.execute(sql`SELECT * FROM tarefa ORDER BY id`) as Tarefa[]
+export async function getTarefas(): Promise<TarefaType[]> {
+    return await db.execute(sql`SELECT * FROM tarefa ORDER BY id`) as TarefaType[]
 }
 
 export async function saveTarefa(formData: FormData) {
     const id = +(formData.get('id') as string) as number
     const titulo = formData.get('titulo') as string
 
-    const tarefa: Tarefa = {
+    const tarefa: TarefaType = {
         id,
         titulo
     }
@@ -37,7 +37,7 @@ export async function saveTarefa(formData: FormData) {
     redirect('/')
 }
 
-export async function removeTarefa(tarefa: Tarefa) {
+export async function removeTarefa(tarefa: TarefaType) {
 
     await db.execute(sql`DELETE FROM tarefa WHERE id=${tarefa.id}`)
 
